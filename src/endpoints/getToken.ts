@@ -4,7 +4,12 @@ import { validateWalletAddress } from "blockchain-wallet-validator";
 export const getToken = async (c: AppContext): Promise<Response> => {
     try {
         // Get the token parameter from the route
-        const tokenAddress = c.req.param("token");
+        const tokenParam = c.req.param("token");
+
+        // Remove .json extension if present
+        const tokenAddress = tokenParam.endsWith('.json')
+            ? tokenParam.slice(0, -5)
+            : tokenParam;
 
         // Validate wallet address using blockchain-wallet-validator
         const isProduction = c.env.ENVIRONMENT === "production";
