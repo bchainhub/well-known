@@ -16,8 +16,8 @@
 		"kv_namespaces": [
 		{
 			"binding": "KV_WELL_KNOWN_REGISTRY",
-			"id": "${KV_WELL_KNOWN_REGISTRY_ID}",
-			"preview_id": "${KV_WELL_KNOWN_REGISTRY_PREVIEW_ID}"
+			"id": "767dcd3919ff4dac8bf6c0f5ffbbfa66",
+			"preview_id": "d205493e57b84dd8bf8da59f14960941"
 		}
 	],
 	"placement": { "mode": "smart" }
