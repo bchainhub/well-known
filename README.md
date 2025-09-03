@@ -105,9 +105,13 @@ GET https://register.coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba
 
 ```json
 {
-  "symbol": "CTN",
+  "ticker": "CTN",
   "name": "CoreToken",
-  "decimals": 18
+  "decimals": 18,
+  "symbol": "Ƈ",
+  "type": "CBC20",
+  "url": "https://coretoken.net",
+  "logo": "https://corecdn.info/mark/256/coretoken.svg"
 }
 ```
 
