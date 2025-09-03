@@ -16,9 +16,6 @@ export const getToken = async (c: AppContext): Promise<Response> => {
             ? tokenParam.slice(0, -5)
             : tokenParam;
 
-        console.log('Token param received:', tokenParam);
-        console.log('Token address after processing:', tokenAddress);
-
         // Validate wallet address using blockchain-wallet-validator
         const isProduction = c.env.ENVIRONMENT === "production";
         const testnet = !isProduction;
