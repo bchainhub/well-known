@@ -17,14 +17,14 @@ Our token registry follows this standard by providing token information at predi
 
 ### Status Endpoints
 
-#### `GET https://register.coreblockchain.net/.well-known/tokens/status/ping`
+#### `GET https://coreblockchain.net/.well-known/tokens/status/ping`
 
 Simple health check endpoint.
 
 - **Response**: `"pong"`
 - **Status**: 200
 
-#### `GET https://register.coreblockchain.net/.well-known/tokens/status/version`
+#### `GET https://coreblockchain.net/.well-known/tokens/status/version`
 
 Returns the current version and environment information.
 
@@ -39,7 +39,7 @@ Returns the current version and environment information.
 
 - **Status**: 200
 
-#### `GET https://register.coreblockchain.net/.well-known/tokens/status/health`
+#### `GET https://coreblockchain.net/.well-known/tokens/status/health`
 
 Returns detailed health information.
 
@@ -56,7 +56,7 @@ Returns detailed health information.
 
 ### Token Endpoints
 
-#### `GET https://register.coreblockchain.net/.well-known/tokens.json`
+#### `GET https://coreblockchain.net/.well-known/tokens.json`
 
 Lists all registered tokens with pagination support.
 
@@ -69,7 +69,7 @@ Lists all registered tokens with pagination support.
 **Example:**
 
 ```bash
-GET https://register.coreblockchain.net/.well-known/tokens.json?prefix=cb&limit=50
+GET https://coreblockchain.net/.well-known/tokens.json?prefix=cb&limit=50
 ```
 
 **Response:**
@@ -87,7 +87,7 @@ GET https://register.coreblockchain.net/.well-known/tokens.json?prefix=cb&limit=
 }
 ```
 
-#### `GET https://register.coreblockchain.net/.well-known/tokens/:token.json`
+#### `GET https://coreblockchain.net/.well-known/tokens/:token.json`
 
 Retrieves detailed information for a specific token.
 
@@ -98,7 +98,7 @@ Retrieves detailed information for a specific token.
 **Example:**
 
 ```bash
-GET https://register.coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c.json
+GET https://coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c.json
 ```
 
 **Response:**
