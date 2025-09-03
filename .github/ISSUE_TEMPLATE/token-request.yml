@@ -1,0 +1,125 @@
+name: Token Request
+description: Request to add a new token to the well-known registry
+title: "[TOKEN REQUEST] "
+labels: ["token-request", "enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for requesting to add a new token to the well-known registry. Please fill out all the required information below.
+
+  - type: input
+    id: token-address
+    attributes:
+      label: Token Address
+      description: The blockchain address of the token
+      placeholder: "cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c"
+    validations:
+      required: true
+
+  - type: input
+    id: token-symbol
+    attributes:
+      label: Token Symbol
+      description: The trading symbol of the token (e.g., CTN, BTC, ETH)
+      placeholder: "CTN"
+    validations:
+      required: true
+
+  - type: input
+    id: token-name
+    attributes:
+      label: Token Name
+      description: The full name of the token
+      placeholder: "CoreToken"
+    validations:
+      required: true
+
+  - type: input
+    id: token-decimals
+    attributes:
+      label: Token Decimals
+      description: Number of decimal places for the token
+      placeholder: "18"
+    validations:
+      required: true
+
+  - type: input
+    id: network
+    attributes:
+      label: Network
+      description: The blockchain network where this token exists
+      placeholder: "XCB"
+    validations:
+      required: true
+
+  - type: input
+    id: project-url
+    attributes:
+      label: Project Website URL
+      description: Official website or documentation URL
+      placeholder: "https://example.com"
+    validations:
+      required: true
+
+  - type: input
+    id: founder-name
+    attributes:
+      label: Founder/Team Name
+      description: Name of the founder or development team
+      placeholder: "John Doe"
+    validations:
+      required: true
+
+  - type: input
+    id: founder-contact
+    attributes:
+      label: Founder/Team Contact
+      description: Contact information (email, social media, etc.)
+      placeholder: "contact@example.com"
+    validations:
+      required: true
+
+  - type: textarea
+    id: project-description
+    attributes:
+      label: Project Description
+      description: Brief description of the token and its purpose
+      placeholder: "Describe what this token is used for and its main features..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-metadata
+    attributes:
+      label: Additional Metadata
+      description: Any additional information that should be included in the token registry
+      placeholder: "Any extra fields or information..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification Checklist
+      description: Please confirm the following
+      options:
+        - label: I confirm that the token address is valid and belongs to the project
+          required: true
+        - label: I confirm that the provided information is accurate
+          required: true
+        - label: I understand that false information may result in token removal
+          required: true
+        - label: I have permission to request this token addition
+          required: true
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Any additional information or context
+      placeholder: "Any other relevant information..."
+    validations:
+      required: false

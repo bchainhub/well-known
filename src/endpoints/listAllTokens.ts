@@ -1,0 +1,53 @@
+import type { AppContext, PaginatedResponse, Token } from "../types";
+
+export const listAllTokens = async (c: AppContext): Promise<Response> => {
+    try {
+        // Parse query parameters
+        const prefix = c.req.query("prefix") || "";
+        const limitParam = parseInt(c.req.query("limit") || "100");
+        const cursor = c.req.query("cursor") || "";
+
+        if (limitParam < 1 || limitParam > 100) {
+            return c.json({ error: "Limit must be between 1 and 100" }, 400);
+        }
+
+        // Get KV store
+        const kv = c.env.KV_WELL_KNOWN_REGISTRY;
+
+        // List keys with prefix filter and cursor pagination
+        const listOptions: any = {
+            prefix: prefix,
+            limit: limitParam.toString()
+        };
+
+        if (cursor) {
+            listOptions.cursor = cursor;
+        }
+
+        const result = await kv.list(listOptions);
+        const { keys, list_complete } = result;
+        const nextCursor = (result as any).cursor;
+
+        // If no keys found, return not found
+        if (!keys || keys.length === 0) {
+            return c.json({ error: "No tokens found" }, 404);
+        }
+
+        // Return just the keys without fetching token data
+        const tokenKeys = keys.map(key => key.name);
+
+        const response = {
+            data: tokenKeys,
+            pagination: {
+                limit: limitParam,
+                hasNext: !list_complete,
+                cursor: nextCursor
+            }
+        };
+
+        return c.json(response, 200);
+    } catch (error) {
+        console.error("Error in listAllTokens:", error);
+        return c.json({ error: "Internal server error" }, 500);
+    }
+};

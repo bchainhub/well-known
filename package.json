@@ -1,0 +1,21 @@
+{
+  "name": "well-known-register",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "blockchain-wallet-validator": "^1.1.2",
+    "hono": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.0",
+    "@types/service-worker-mock": "^2.0.4",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.33.1"
+  }
+}
