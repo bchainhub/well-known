@@ -17,14 +17,14 @@ Our token registry follows this standard by providing token information at predi
 
 ### Status Endpoints
 
-#### `GET https://register.coreblockchain.net/.well-known/status/ping`
+#### `GET https://register.coreblockchain.net/.well-known/tokens/status/ping`
 
 Simple health check endpoint.
 
 - **Response**: `"pong"`
 - **Status**: 200
 
-#### `GET https://register.coreblockchain.net/.well-known/status/version`
+#### `GET https://register.coreblockchain.net/.well-known/tokens/status/version`
 
 Returns the current version and environment information.
 
@@ -39,7 +39,7 @@ Returns the current version and environment information.
 
 - **Status**: 200
 
-#### `GET https://register.coreblockchain.net/.well-known/status/health`
+#### `GET https://register.coreblockchain.net/.well-known/tokens/status/health`
 
 Returns detailed health information.
 

@@ -20,13 +20,10 @@ app.use(
   })
 );
 
-// Main endpoint routes
-app.get("/.well-known", (c) => c.json({ status: "OK", message: "Well-known register is running" }, 200));
-
 // Status endpoints
-app.get("/.well-known/status/ping", Ping);
-app.get("/.well-known/status/version", Version);
-app.get("/.well-known/status/health", Health);
+app.get("/.well-known/tokens/status/ping", Ping);
+app.get("/.well-known/tokens/status/version", Version);
+app.get("/.well-known/tokens/status/health", Health);
 
 // Token endpoints
 app.get("/.well-known/tokens.json", listAllTokens);
