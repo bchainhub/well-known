@@ -76,7 +76,7 @@ GET https://coreblockchain.net/.well-known/tokens.json?prefix=cb&limit=50
 
 ```json
 {
-  "data": [
+  "tokens": [
     "cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c"
   ],
   "pagination": {

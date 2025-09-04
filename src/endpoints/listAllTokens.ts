@@ -4,10 +4,10 @@ export const listAllTokens = async (c: AppContext): Promise<Response> => {
     try {
         // Parse query parameters
         const prefix = c.req.query("prefix") || "";
-        const limitParam = parseInt(c.req.query("limit") || "100");
+        const limitParam = parseInt(c.req.query("limit") || "1000");
         const cursor = c.req.query("cursor") || "";
 
-        if (limitParam < 1 || limitParam > 100) {
+        if (limitParam < 1 || limitParam > 1000) {
             return c.json({ error: "Limit must be between 1 and 100" }, 400);
         }
 
@@ -37,7 +37,7 @@ export const listAllTokens = async (c: AppContext): Promise<Response> => {
         const tokenKeys = keys.map(key => key.name);
 
         const response = {
-            data: tokenKeys,
+            tokens: tokenKeys,
             pagination: {
                 limit: limitParam,
                 hasNext: !list_complete,
