@@ -32,8 +32,8 @@ Returns the current version and environment information.
 
   ```json
   {
-    "version": "1.0.0",
-    "environment": "production"
+    "version": "0.1.0",
+    "environment": "prod"
   }
   ```
 
