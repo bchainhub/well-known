@@ -111,7 +111,38 @@ GET https://coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba23c2eaa5d
   "symbol": "Ƈ",
   "type": "CBC20",
   "url": "https://coretoken.net",
-  "logo": "https://corecdn.info/mark/256/coretoken.svg"
+  "logos": [
+    {
+      "size": 16,
+      "type": "image/svg+xml",
+      "url": "https://corecdn.info/mark/16/coretoken.svg"
+    },
+    {
+      "size": 32,
+      "type": "image/svg+xml",
+      "url": "https://corecdn.info/mark/32/coretoken.svg"
+    },
+    {
+      "size": 48,
+      "type": "image/svg+xml",
+      "url": "https://corecdn.info/mark/48/coretoken.svg"
+    },
+    {
+      "size": 64,
+      "type": "image/svg+xml",
+      "url": "https://corecdn.info/mark/64/coretoken.svg"
+    },
+    {
+      "size": 128,
+      "type": "image/svg+xml",
+      "url": "https://corecdn.info/mark/128/coretoken.svg"
+    },
+    {
+      "size": 256,
+      "type": "image/svg+xml",
+      "url": "https://corecdn.info/mark/256/coretoken.svg"
+    }
+  ]
 }
 ```
 
