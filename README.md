@@ -105,6 +105,8 @@ GET https://coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba23c2eaa5d
 
 ```json
 {
+  "blockchain": "core",
+  "network": "xcb",
   "ticker": "CTN",
   "name": "CoreToken",
   "decimals": 18,
