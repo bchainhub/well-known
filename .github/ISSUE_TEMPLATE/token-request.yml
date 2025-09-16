@@ -2,7 +2,7 @@ name: Token Request
 description: Request to add a new token to the well-known registry
 title: "[TOKEN REQUEST] "
 labels: ["token-request", "enhancement"]
-assignees: []
+assignees: ["rastislavcore"]
 
 body:
   - type: markdown
@@ -47,11 +47,29 @@ body:
       required: true
 
   - type: input
+    id: blockchain
+    attributes:
+      label: Blockchain
+      description: The blockchain name (e.g., core, ethereum, bitcoin)
+      placeholder: "core"
+    validations:
+      required: true
+
+  - type: input
     id: network
     attributes:
       label: Network
       description: The blockchain network where this token exists
-      placeholder: "XCB"
+      placeholder: "xcb"
+    validations:
+      required: true
+
+  - type: input
+    id: creation-date
+    attributes:
+      label: Creation Date/Time
+      description: When the token was created (ISO 8601 format)
+      placeholder: "2023-11-17T17:23:50.000Z"
     validations:
       required: true
 

@@ -113,6 +113,7 @@ GET https://coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba23c2eaa5d
   "symbol": "Ƈ",
   "type": "CBC20",
   "url": "https://coretoken.net",
+  "creation": "2023-11-17T17:23:50.000Z",
   "logos": [
     {
       "size": 16,
