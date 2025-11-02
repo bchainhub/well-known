@@ -3,16 +3,18 @@ import type { AppContext, PaginatedResponse, Token } from "../types";
 export const listAllTokens = async (c: AppContext): Promise<Response> => {
     try {
         // Parse query parameters
-        const prefix = c.req.query("prefix") || "";
+        const prefix = (c.req.query("prefix") || "").toLowerCase();
         const limitParam = parseInt(c.req.query("limit") || "1000");
         const cursor = c.req.query("cursor") || "";
+        const network = (c.req.param("network") || "").toLowerCase() || "xcb";
+        const testnet = network === "xab" || network === "testnet" || c.env.TESTNET === "true";
 
         if (limitParam < 1 || limitParam > 1000) {
             return c.json({ error: "Limit must be between 1 and 100" }, 400);
         }
 
         // Get KV store
-        const kv = c.env.KV_WELL_KNOWN_REGISTRY;
+        const kv = testnet ? c.env.KV_WELL_KNOWN_REGISTRY_TESTNET : c.env.KV_WELL_KNOWN_REGISTRY;
 
         // List keys with prefix filter and cursor pagination
         const listOptions: any = {

@@ -4,7 +4,9 @@ import type { Context } from "hono";
 declare global {
   interface Env {
     KV_WELL_KNOWN_REGISTRY: KVNamespace;
+    KV_WELL_KNOWN_REGISTRY_TESTNET: KVNamespace;
     ENVIRONMENT?: string;
+    TESTNET?: string;
   }
 }
 

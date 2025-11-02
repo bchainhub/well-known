@@ -27,7 +27,9 @@ app.get("/.well-known/tokens/status/health", Health);
 
 // Token endpoints
 app.get("/.well-known/tokens.json", listAllTokens);
+app.get("/.well-known/tokens/:network/tokens.json", listAllTokens);
 app.get("/.well-known/tokens/:token", getToken);
+app.get("/.well-known/tokens/:network/:token.json", getToken);
 
 // Export the Hono app
 export default app;
