@@ -33,7 +33,7 @@ Returns the current version and environment information.
   ```json
   {
     "version": "0.1.0",
-    "environment": "prod"
+    "environment": "production"
   }
   ```
 
@@ -58,18 +58,40 @@ Returns detailed health information.
 
 #### `GET https://coreblockchain.net/.well-known/tokens.json`
 
-Lists all registered tokens with pagination support.
+Lists all registered tokens from the main network with pagination support.
 
 **Query Parameters:**
 
 - `prefix` (optional): Filter tokens by address prefix
-- `limit` (optional): Number of tokens per page (1-100, default: 100)
+- `limit` (optional): Number of tokens per page (1-1000, default: 1000)
 - `cursor` (optional): Cursor for pagination
 
 **Example:**
 
 ```bash
 GET https://coreblockchain.net/.well-known/tokens.json?prefix=cb&limit=50
+```
+
+#### `GET https://coreblockchain.net/.well-known/tokens/:network/tokens.json`
+
+Lists all registered tokens from a specific network with pagination support.
+
+**Parameters:**
+
+- `network`: The network identifier (e.g., `xcb`, `xab`, `testnet`)
+
+**Query Parameters:**
+
+- `prefix` (optional): Filter tokens by address prefix
+- `limit` (optional): Number of tokens per page (1-1000, default: 1000)
+- `cursor` (optional): Cursor for pagination
+
+**Examples:**
+
+```bash
+GET https://coreblockchain.net/.well-known/tokens/xcb/tokens.json?prefix=cb&limit=50
+GET https://coreblockchain.net/.well-known/tokens/testnet/tokens.json
+GET https://coreblockchain.net/.well-known/tokens/xab/tokens.json
 ```
 
 **Response:**
@@ -89,7 +111,7 @@ GET https://coreblockchain.net/.well-known/tokens.json?prefix=cb&limit=50
 
 #### `GET https://coreblockchain.net/.well-known/tokens/:token.json`
 
-Retrieves detailed information for a specific token.
+Retrieves detailed information for a specific token from the main network.
 
 **Parameters:**
 
@@ -99,6 +121,22 @@ Retrieves detailed information for a specific token.
 
 ```bash
 GET https://coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c.json
+```
+
+#### `GET https://coreblockchain.net/.well-known/tokens/:network/:token.json`
+
+Retrieves detailed information for a specific token from a specific network.
+
+**Parameters:**
+
+- `network`: The network identifier (e.g., `xcb`, `xab`, `testnet`)
+- `token`: The token address (without .json extension)
+
+**Examples:**
+
+```bash
+GET https://coreblockchain.net/.well-known/tokens/xcb/cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c.json
+GET https://coreblockchain.net/.well-known/tokens/testnet/cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c.json
 ```
 
 **Response:**
@@ -155,12 +193,47 @@ GET https://coreblockchain.net/.well-known/tokens/cb19c7acc4c292d2943ba23c2eaa5d
 - `404 Not Found`: Token not found in registry
 - `500 Internal Server Error`: Error retrieving token data
 
-## Token Validation
+## Network Separation and Security
 
-All token addresses are validated using the `blockchain-wallet-validator` library to ensure they are valid wallet addresses for the appropriate network:
+### Why Separate Testnet and Mainnet?
 
-- **Production**: XCB network validation
-- **Development**: XAB network validation (testnet)
+This registry maintains separate storage and endpoints for testnet and mainnet tokens for several critical reasons:
+
+1. **Data Integrity**: Testnet tokens can be created, destroyed, and manipulated freely for testing purposes. Keeping them separate prevents contamination of production token data.
+
+2. **Security**: Mixing testnet and mainnet data could lead to serious security vulnerabilities, including:
+   - Accidentally using testnet tokens in production transactions
+   - Confusion about which network a token belongs to
+   - Malicious actors potentially creating testnet tokens with the same address as mainnet tokens
+
+3. **Performance**: Separating datasets allows for independent optimization and scaling. Testnet data can grow freely without impacting mainnet query performance.
+
+4. **Compliance**: Production and testing environments should be isolated. Many regulatory frameworks require clear separation between test and production data.
+
+The registry uses separate KV storage namespaces:
+
+- `KV_WELL_KNOWN_REGISTRY`: Main network (XCB) tokens
+- `KV_WELL_KNOWN_REGISTRY_TESTNET`: Test network (XAB) tokens
+
+### Why Validate Token Addresses?
+
+All token addresses are validated using the `blockchain-wallet-validator` library for the following reasons:
+
+1. **Prevent Invalid Addresses**: Ensures all registered tokens have valid blockchain addresses, preventing typos and malformed data from entering the registry.
+
+2. **Network Safety**: Validates that addresses are appropriate for the specified network (e.g., XCB vs XAB) to prevent cross-network confusion.
+
+3. **Trust and Reliability**: Applications consuming this registry need to trust that all addresses are valid. Validation provides this guarantee.
+
+4. **Prevent Abuse**: Without validation, malicious actors could register invalid or fake addresses, potentially causing applications to fail or behave unexpectedly.
+
+5. **Early Error Detection**: Catching invalid addresses during registration prevents downstream errors when wallets, exchanges, or other applications try to use these addresses.
+
+The validation rules:
+
+- **Main Network**: XCB network validation
+- **Test Network**: XAB network validation
+- Legacy address formats are disabled for security
 
 ## Adding New Tokens
 

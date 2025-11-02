@@ -16,12 +16,12 @@ export const getToken = async (c: AppContext): Promise<Response> => {
             ? tokenParam.slice(0, -5)
             : tokenParam;
 
-        // Validate wallet address using blockchain-wallet-validator
-        const isProduction = c.env.ENVIRONMENT === "production";
-        const testnet = !isProduction;
+        // Use network and validate wallet address
+        const network = (c.req.param("network") || "").toLowerCase() || "xcb";
+        const testnet = network === "xab" || network === "testnet" || c.env.TESTNET === "true";
 
         const validationResult = validateWalletAddress(tokenAddress, {
-            network: isProduction ? ["xcb"] : ["xab"],
+            network: [network],
             testnet,
             enabledLegacy: false
         });
@@ -31,7 +31,7 @@ export const getToken = async (c: AppContext): Promise<Response> => {
         }
 
         // Get token data from KV store using token address as key
-        const kv = c.env.KV_WELL_KNOWN_REGISTRY;
+        const kv = testnet ? c.env.KV_WELL_KNOWN_REGISTRY_TESTNET : c.env.KV_WELL_KNOWN_REGISTRY;
 
         try {
             const tokenData = await kv.get(tokenAddress, "json");
