@@ -92,13 +92,13 @@ body:
       required: false
 
   - type: input
-    id: creation
+    id: genesis
     attributes:
-      label: Creation Date/Time
-      description: When the token was created (ISO 8601 format)
+      label: Genesis Date/Time
+      description: When the token was first released/created (ISO 8601 format, optional)
       placeholder: "2023-11-17T17:23:50.000Z"
     validations:
-      required: true
+      required: false
 
   - type: input
     id: expiration

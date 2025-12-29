@@ -37,6 +37,9 @@ export function cleanTokenData(tokenData: any): any {
 	if (tokenData.chainId !== undefined && tokenData.chainId !== null) {
 		cleaned.chainId = tokenData.chainId;
 	}
+	if (tokenData.genesis !== undefined && tokenData.genesis !== null) {
+		cleaned.genesis = tokenData.genesis;
+	}
 	if (tokenData.expiration !== undefined && tokenData.expiration !== null) {
 		cleaned.expiration = tokenData.expiration;
 	}

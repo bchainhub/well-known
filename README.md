@@ -240,7 +240,7 @@ GET https://coreblockchain.net/.well-known/tokens/testnet/cb19c7acc4c292d2943ba2
   "network": "xcb",
   "chainId": null,
   "testnet": false,
-  "creation": "2023-11-17T17:23:50.000Z",
+  "genesis": "2023-11-17T17:23:50.000Z",
   "expiration": null,
   "address": "cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c",
   "ticker": "CTN",
@@ -280,6 +280,7 @@ GET https://coreblockchain.net/.well-known/tokens/testnet/cb19c7acc4c292d2943ba2
 - `network`: Network identifier (e.g., "xcb", "xab")
 - `chainId`: Chain ID number (null if not specified)
 - `testnet`: Boolean indicating if this is a testnet token
+- `genesis`: ISO 8601 timestamp when the token was first released/created (null if not specified)
 - `expiration`: ISO 8601 timestamp when the token expires (null if never expires)
 - `address`: Blockchain address of the token contract
 - `ticker`: Trading symbol (e.g., "CTN", "BTC", "ETH")
