@@ -20,16 +20,16 @@ body:
       required: true
 
   - type: input
-    id: token-symbol
+    id: ticker
     attributes:
-      label: Token Symbol
+      label: Ticker
       description: The trading symbol of the token (e.g., CTN, BTC, ETH)
       placeholder: "CTN"
     validations:
       required: true
 
   - type: input
-    id: token-name
+    id: name
     attributes:
       label: Token Name
       description: The full name of the token
@@ -38,11 +38,29 @@ body:
       required: true
 
   - type: input
-    id: token-decimals
+    id: symbol
     attributes:
-      label: Token Decimals
-      description: Number of decimal places for the token
+      label: Display Symbol
+      description: The display symbol of the token (e.g., Ƈ, ₿, Ξ)
+      placeholder: "Ƈ"
+    validations:
+      required: true
+
+  - type: input
+    id: decimals
+    attributes:
+      label: Decimals
+      description: Number of decimal places for the token (0-255)
       placeholder: "18"
+    validations:
+      required: true
+
+  - type: input
+    id: type
+    attributes:
+      label: Token Type
+      description: The token type (e.g., CBC20, CBC721, ERC20, ERC721)
+      placeholder: "CBC20"
     validations:
       required: true
 
@@ -59,13 +77,22 @@ body:
     id: network
     attributes:
       label: Network
-      description: The blockchain network where this token exists
+      description: The blockchain network where this token exists (e.g., xcb, xab, testnet)
       placeholder: "xcb"
     validations:
       required: true
 
   - type: input
-    id: creation-date
+    id: chain-id
+    attributes:
+      label: Chain ID
+      description: Chain ID number (optional, leave empty if not applicable)
+      placeholder: "1"
+    validations:
+      required: false
+
+  - type: input
+    id: creation
     attributes:
       label: Creation Date/Time
       description: When the token was created (ISO 8601 format)
@@ -74,47 +101,110 @@ body:
       required: true
 
   - type: input
-    id: project-url
+    id: expiration
+    attributes:
+      label: Expiration Date/Time
+      description: When the token expires (ISO 8601 format, optional - leave empty if never expires)
+      placeholder: "2025-12-31T23:59:59.000Z"
+    validations:
+      required: false
+
+  - type: input
+    id: upcoming
+    attributes:
+      label: Upcoming Date/Time
+      description: When the token will become available (ISO 8601 format, optional - leave empty if available now)
+      placeholder: "2024-01-01T00:00:00.000Z"
+    validations:
+      required: false
+
+  - type: input
+    id: url
     attributes:
       label: Project Website URL
-      description: Official website or documentation URL
+      description: Official website or documentation URL (optional)
       placeholder: "https://example.com"
     validations:
-      required: true
+      required: false
 
   - type: input
-    id: founder-name
+    id: alt-symbol
     attributes:
-      label: Founder/Team Name
-      description: Name of the founder or development team
-      placeholder: "John Doe"
+      label: Alternative Symbol
+      description: Alternative symbol for the token (optional, e.g., C for Ƈ)
+      placeholder: "C"
     validations:
-      required: true
+      required: false
 
   - type: input
-    id: founder-contact
+    id: flag
     attributes:
-      label: Founder/Team Contact
-      description: Contact information (email, social media, etc.)
-      placeholder: "contact@example.com"
+      label: Flag Emoji
+      description: Emoji flag representing the token's origin (optional)
+      placeholder: "🏴‍☠️"
     validations:
-      required: true
+      required: false
+
+  - type: input
+    id: total-supply
+    attributes:
+      label: Total Supply
+      description: Total supply of tokens as a string (optional)
+      placeholder: "1000000000000000000000000"
+    validations:
+      required: false
+
+  - type: input
+    id: categories
+    attributes:
+      label: Categories
+      description: Comma-separated list of categories (e.g., rwa, stable, defi)
+      placeholder: "rwa,stable"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: alt-counting
+    attributes:
+      label: Alternative Counting
+      description: Check if this token uses alternative counting method
+      options:
+        - label: Token uses alternative counting method
+          required: false
+
+  - type: textarea
+    id: logos
+    attributes:
+      label: Logos JSON
+      description: JSON object with logo URLs organized by format (png/svg) and size. See README for format example.
+      placeholder: '{"png": {"16": "https://…", "32": "https://…"}, "svg": {"16": "https://…", "32": "https://…"}}'
+    validations:
+      required: false
 
   - type: textarea
     id: project-description
     attributes:
       label: Project Description
-      description: Brief description of the token and its purpose
-      placeholder: "Describe what this token is used for and its main features..."
+      description: Brief description of the token and its purpose (for review purposes, not stored in registry)
+      placeholder: "Describe what this token is used for and its main features…"
     validations:
-      required: true
+      required: false
 
-  - type: textarea
-    id: additional-metadata
+  - type: input
+    id: founder-name
     attributes:
-      label: Additional Metadata
-      description: Any additional information that should be included in the token registry
-      placeholder: "Any extra fields or information..."
+      label: Founder/Team Name
+      description: Name of the founder or development team (for review purposes, not stored in registry)
+      placeholder: "John Doe"
+    validations:
+      required: false
+
+  - type: input
+    id: founder-contact
+    attributes:
+      label: Founder/Team Contact
+      description: Contact information (email, social media, etc.) (for review purposes, not stored in registry)
+      placeholder: "contact@example.com"
     validations:
       required: false
 
@@ -138,6 +228,6 @@ body:
     attributes:
       label: Additional Notes
       description: Any additional information or context
-      placeholder: "Any other relevant information..."
+      placeholder: "Any other relevant information…"
     validations:
       required: false

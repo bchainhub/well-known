@@ -11,13 +11,13 @@ const app = new Hono<{ Bindings: Env }>();
 
 // Apply CORS middleware globally
 app.use(
-  "*",
-  cors({
-    origin: "*",
-    allowMethods: ["GET", "POST", "OPTIONS"],
-    allowHeaders: ["*"],
-    maxAge: 86400,
-  })
+	"*",
+	cors({
+		origin: "*",
+		allowMethods: ["GET", "POST", "OPTIONS"],
+		allowHeaders: ["*"],
+		maxAge: 86400,
+	})
 );
 
 // Status endpoints

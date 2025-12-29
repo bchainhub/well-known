@@ -6,12 +6,13 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "well-known-register",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-11-01",
+	"compatibility_date": "2025-12-29",
 	"observability": {
 		"enabled": true
 	},
 	"vars": {
-		"ENVIRONMENT": "production"
+		"ENVIRONMENT": "production",
+		"STORAGE": "d1"
 	},
 	"kv_namespaces": [
 		{
@@ -22,6 +23,13 @@
 		{
 			"binding": "KV_WELL_KNOWN_REGISTRY_TESTNET",
 			"id": "d205493e57b84dd8bf8da59f14960941"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "D1_WELL_KNOWN_REGISTRY",
+			"database_id": "75bca707-b716-4746-94b3-915a108771e3",
+			"database_name": "well-known"
 		}
 	],
 	"placement": { "mode": "smart" }
