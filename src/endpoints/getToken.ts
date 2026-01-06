@@ -18,18 +18,23 @@ export const getToken = async (c: AppContext): Promise<Response> => {
 			? tokenParam.slice(0, -5)
 			: tokenParam;
 
-		// Use network and validate wallet address
-		const network = normalizeNetwork(c.req.param("network"), "xcb");
-		const testnet = isTestnetNetwork(network) || c.env.TESTNET === "true";
+		const networkParam = c.req.param("network");
+		let network = null;
+		let testnet = null;
+		if (networkParam) {
+			// Use network and validate wallet address
+			network = normalizeNetwork(networkParam);
+			testnet = isTestnetNetwork(network) || c.env.TESTNET === "true";
 
-		const validationResult = validateWalletAddress(tokenAddress, {
-			network: [network],
-			testnet,
-			enabledLegacy: false
-		});
+			const validationResult = validateWalletAddress(tokenAddress, {
+				network: [network],
+				testnet,
+				enabledLegacy: false
+			});
 
-		if (!validationResult.isValid) {
-			return c.json({ error: "Invalid wallet address" }, 400);
+			if (!validationResult.isValid) {
+				return c.json({ error: "Invalid wallet address" }, 400);
+			}
 		}
 
 		const storage = (c.env.STORAGE || "kv").toLowerCase();
@@ -48,7 +53,7 @@ export const getToken = async (c: AppContext): Promise<Response> => {
 async function getTokenKV(
 	c: AppContext,
 	tokenAddress: string,
-	testnet: boolean
+	testnet: boolean | null
 ): Promise<Response> {
 	// Get token data from KV store using token address as key
 	const kv = testnet ? c.env.KV_WELL_KNOWN_REGISTRY_TESTNET : c.env.KV_WELL_KNOWN_REGISTRY;
@@ -71,12 +76,43 @@ async function getTokenKV(
 async function getTokenD1(
 	c: AppContext,
 	tokenAddress: string,
-	network: string,
-	testnet: boolean
+	network: string | null,
+	testnet: boolean | null
 ): Promise<Response> {
 	const db = c.env.D1_WELL_KNOWN_REGISTRY;
 
 	try {
+		// Build WHERE conditions dynamically
+		const conditions: string[] = [];
+		const params: any[] = [];
+
+		// Always filter by address
+		conditions.push(`address = ?`);
+		params.push(tokenAddress);
+
+		// Filter by network only if provided
+		if (network !== null && network !== undefined) {
+			conditions.push(`network = ?`);
+			params.push(network);
+		}
+
+		// Filter by testnet only if provided
+		if (testnet !== null && testnet !== undefined) {
+			conditions.push(`testnet = ?`);
+			params.push(testnet ? 1 : 0);
+		}
+
+		// Always filter enabled tokens
+		conditions.push(`enabled = 1`);
+
+		// Filter out expired tokens
+		conditions.push(`(expiration IS NULL OR expiration > datetime('now'))`);
+
+		// Filter out upcoming tokens
+		conditions.push(`(upcoming IS NULL OR upcoming <= datetime('now'))`);
+
+		const whereClause = `WHERE ${conditions.join(' AND ')}`;
+
 		const query = `
 			SELECT
 				blockchain,
@@ -99,15 +135,10 @@ async function getTokenD1(
 				url,
 				logos
 			FROM tokens
-			WHERE address = ?
-				AND network = ?
-				AND testnet = ?
-				AND enabled = 1
-				AND (expiration IS NULL OR expiration > datetime('now'))
-				AND (upcoming IS NULL OR upcoming <= datetime('now'))
+			${whereClause}
 		`;
 
-		const result = await db.prepare(query).bind(tokenAddress, network, testnet ? 1 : 0).first<any>();
+		const result = await db.prepare(query).bind(...params).first<any>();
 
 		if (!result) {
 			return c.json({ error: "Token not found" }, 404);
