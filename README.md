@@ -174,12 +174,12 @@ GET https://coreblockchain.net/.well-known/tokens/xcb/tokens.json?ticker=CTN&ord
       "url": "https://coretoken.net",
       "logos": {
         "png": {
-          "16": "https://corecdn.info/mark/16/corecoin.png",
-          "32": "https://corecdn.info/mark/32/corecoin.png"
+          "16": "https://corecdn.info/mark/16/xcb.png",
+          "32": "https://corecdn.info/mark/32/xcb.png"
         },
         "svg": {
-          "16": "https://corecdn.info/mark/16/corecoin.svg",
-          "32": "https://corecdn.info/mark/32/corecoin.svg"
+          "16": "https://corecdn.info/mark/16/xcb.svg",
+          "32": "https://corecdn.info/mark/32/xcb.svg"
         }
       }
     }
@@ -314,20 +314,20 @@ GET https://coreblockchain.net/.well-known/tokens/testnet/cb19c7acc4c292d2943ba2
   "url": "https://coretoken.net",
   "logos": {
     "png": {
-      "16": "https://corecdn.info/mark/16/coretoken.png",
-      "32": "https://corecdn.info/mark/32/coretoken.png",
-      "48": "https://corecdn.info/mark/48/coretoken.png",
-      "64": "https://corecdn.info/mark/64/coretoken.png",
-      "128": "https://corecdn.info/mark/128/coretoken.png",
-      "256": "https://corecdn.info/mark/256/coretoken.png"
+      "16": "https://corecdn.info/mark/16/ctn.png",
+      "32": "https://corecdn.info/mark/32/ctn.png",
+      "48": "https://corecdn.info/mark/48/ctn.png",
+      "64": "https://corecdn.info/mark/64/ctn.png",
+      "128": "https://corecdn.info/mark/128/ctn.png",
+      "256": "https://corecdn.info/mark/256/ctn.png"
     },
     "svg": {
-      "16": "https://corecdn.info/mark/16/coretoken.svg",
-      "32": "https://corecdn.info/mark/32/coretoken.svg",
-      "48": "https://corecdn.info/mark/48/coretoken.svg",
-      "64": "https://corecdn.info/mark/64/coretoken.svg",
-      "128": "https://corecdn.info/mark/128/coretoken.svg",
-      "256": "https://corecdn.info/mark/256/coretoken.svg"
+      "16": "https://corecdn.info/mark/16/ctn.svg",
+      "32": "https://corecdn.info/mark/32/ctn.svg",
+      "48": "https://corecdn.info/mark/48/ctn.svg",
+      "64": "https://corecdn.info/mark/64/ctn.svg",
+      "128": "https://corecdn.info/mark/128/ctn.svg",
+      "256": "https://corecdn.info/mark/256/ctn.svg"
     }
   }
 }

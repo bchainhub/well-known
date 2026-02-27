@@ -1,0 +1,8 @@
+# Require issue authors to choose a template (no blank issues)
+blank_issues_enabled: false
+
+# Link to documentation when creating a new issue
+contact_links:
+  - name: 📖 Learn more / README
+    url: https://github.com/bchainhub/well-known/blob/main/README.md
+    about: API documentation, endpoints, and usage for the Well-Known Token Registry

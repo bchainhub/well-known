@@ -8,7 +8,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for requesting to add a new token to the well-known registry. Please fill out all the required information below.
+        Thank you for requesting to add a new token to the well-known registry.
+        Please fill out all **required** fields below. Optional fields can be left blank.
 
   - type: input
     id: token-address
@@ -77,7 +78,7 @@ body:
     id: network
     attributes:
       label: Network
-      description: The blockchain network where this token exists (e.g., xcb, xab, testnet)
+      description: The blockchain network where this token exists (e.g., xcb, btc, eth). Use xab, testnet, etc. for testnets; testnet is auto-detected from the network name.
       placeholder: "xcb"
     validations:
       required: true
@@ -176,8 +177,8 @@ body:
     id: logos
     attributes:
       label: Logos JSON
-      description: JSON object with logo URLs organized by format (png/svg) and size. See README for format example.
-      placeholder: '{"png": {"16": "https://…", "32": "https://…"}, "svg": {"16": "https://…", "32": "https://…"}}'
+      description: JSON object with logo URLs by format (png, svg) and size (16, 32, 48, 64, 128, 256). See README for the exact structure.
+      placeholder: '{"png": {"16": "https://…", "32": "https://…", "48": "https://…"}, "svg": {"16": "https://…", "32": "https://…", "48": "https://…"}}'
     validations:
       required: false
 

@@ -72,10 +72,19 @@ async function lookupKV(
 	const address = identifier;
 	const results: { network: string; testnet: boolean }[] = [];
 
+	// Only count token if active, non-expired, and available (not upcoming)
+	const isActiveToken = (token: Record<string, unknown>): boolean => {
+		if (token.enabled === false) return false;
+		const now = new Date().toISOString();
+		if (token.expiration && String(token.expiration) < now) return false;
+		if (token.upcoming && String(token.upcoming) > now) return false;
+		return true;
+	};
+
 	// Check mainnet KV
 	const kvMain = c.env.KV_WELL_KNOWN_REGISTRY;
 	const mainData = await kvMain.get(address, "json");
-	if (mainData) {
+	if (mainData && isActiveToken(mainData as Record<string, unknown>)) {
 		const token = mainData as { network?: string };
 		results.push({ network: token.network || "xcb", testnet: false });
 	}
@@ -84,7 +93,7 @@ async function lookupKV(
 	if (includeTestnet) {
 		const kvTest = c.env.KV_WELL_KNOWN_REGISTRY_TESTNET;
 		const testData = await kvTest.get(address, "json");
-		if (testData) {
+		if (testData && isActiveToken(testData as Record<string, unknown>)) {
 			const token = testData as { network?: string };
 			results.push({ network: token.network || "xab", testnet: true });
 		}
