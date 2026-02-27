@@ -1,0 +1,77 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please fill out the sections below.
+        **Learn more:** [README](https://github.com/bchainhub/well-known/blob/main/README.md)
+
+  - type: input
+    id: version-env
+    attributes:
+      label: Version / Environment
+      description: Version or deployment environment (e.g., production, preview, wrangler dev)
+      placeholder: "0.1.0 / production"
+    validations:
+      required: true
+
+  - type: input
+    id: endpoint
+    attributes:
+      label: Affected endpoint or feature
+      description: URL path or feature name (e.g., /.well-known/tokens.json, lookup)
+      placeholder: "GET /.well-known/tokens/lookup/xcb/ctn"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: A clear description of what the bug is
+      placeholder: "Describe what went wrong..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Call GET '...'
+        2. With query '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen
+      placeholder: "Expected response / behavior..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened (error message, status code, response snippet)
+      placeholder: "Actual response or error..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Logs, screenshots, or other context
+      placeholder: "Optional: storage (KV/D1), request headers, etc."
+    validations:
+      required: false

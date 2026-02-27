@@ -174,12 +174,12 @@ GET https://coreblockchain.net/.well-known/tokens/xcb/tokens.json?ticker=CTN&ord
       "url": "https://coretoken.net",
       "logos": {
         "png": {
-          "16": "https://corecdn.info/mark/16/corecoin.png",
-          "32": "https://corecdn.info/mark/32/corecoin.png"
+          "16": "https://corecdn.info/mark/16/xcb.png",
+          "32": "https://corecdn.info/mark/32/xcb.png"
         },
         "svg": {
-          "16": "https://corecdn.info/mark/16/corecoin.svg",
-          "32": "https://corecdn.info/mark/32/corecoin.svg"
+          "16": "https://corecdn.info/mark/16/xcb.svg",
+          "32": "https://corecdn.info/mark/32/xcb.svg"
         }
       }
     }
@@ -201,6 +201,65 @@ The registry automatically filters out:
 - **Upcoming tokens**: Tokens with an `upcoming` timestamp in the future are excluded (only shown after the `upcoming` date)
 
 This ensures that only active, valid tokens are returned in listings.
+
+#### `GET https://coreblockchain.net/.well-known/tokens/lookup/:network/:identifier`
+
+Look up whether a token exists by **token name** (ticker) or **address**.
+
+**Parameters:**
+
+- `network`: A specific network (e.g., `xcb`, `btc`, `eth`) or `all` to search across all networks
+- `identifier`: Token name (e.g., `ctn`) if **11 characters or fewer**, or token **address** if more than 11 characters (e.g., `cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c`)
+
+**Query parameters:**
+
+- `testnet` (optional): Set to `1` to include testnet tokens in the search. Default: only mainnet
+
+**Success response (200):**
+
+- `exists`: `true`
+- `amount`: Number of tokens found
+- `networks`: Array of network identifiers where the token was found (only when `network=all`)
+
+**Not found (404):**
+
+- `exists`: `false`
+- `amount`: `0`
+- `error`: `"Token not found"`
+
+**Examples:**
+
+```bash
+# Look up by ticker on xcb
+GET https://coreblockchain.net/.well-known/tokens/lookup/xcb/ctn
+
+# Look up by address on all networks
+GET https://coreblockchain.net/.well-known/tokens/lookup/all/cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c
+
+# Include testnet in lookup
+GET https://coreblockchain.net/.well-known/tokens/lookup/all/ctn?testnet=1
+```
+
+**Example success response (network=all):**
+
+```json
+{
+  "exists": true,
+  "amount": 2,
+  "networks": ["xcb", "btc"]
+}
+```
+
+**Example success response (specific network):**
+
+```json
+{
+  "exists": true,
+  "amount": 1
+}
+```
+
+**Note:** Lookup by token name (ticker) requires D1 storage. With KV storage, only lookup by address is supported.
 
 #### `GET https://coreblockchain.net/.well-known/tokens/:token.json`
 
@@ -255,20 +314,20 @@ GET https://coreblockchain.net/.well-known/tokens/testnet/cb19c7acc4c292d2943ba2
   "url": "https://coretoken.net",
   "logos": {
     "png": {
-      "16": "https://corecdn.info/mark/16/coretoken.png",
-      "32": "https://corecdn.info/mark/32/coretoken.png",
-      "48": "https://corecdn.info/mark/48/coretoken.png",
-      "64": "https://corecdn.info/mark/64/coretoken.png",
-      "128": "https://corecdn.info/mark/128/coretoken.png",
-      "256": "https://corecdn.info/mark/256/coretoken.png"
+      "16": "https://corecdn.info/mark/16/ctn.png",
+      "32": "https://corecdn.info/mark/32/ctn.png",
+      "48": "https://corecdn.info/mark/48/ctn.png",
+      "64": "https://corecdn.info/mark/64/ctn.png",
+      "128": "https://corecdn.info/mark/128/ctn.png",
+      "256": "https://corecdn.info/mark/256/ctn.png"
     },
     "svg": {
-      "16": "https://corecdn.info/mark/16/coretoken.svg",
-      "32": "https://corecdn.info/mark/32/coretoken.svg",
-      "48": "https://corecdn.info/mark/48/coretoken.svg",
-      "64": "https://corecdn.info/mark/64/coretoken.svg",
-      "128": "https://corecdn.info/mark/128/coretoken.svg",
-      "256": "https://corecdn.info/mark/256/coretoken.svg"
+      "16": "https://corecdn.info/mark/16/ctn.svg",
+      "32": "https://corecdn.info/mark/32/ctn.svg",
+      "48": "https://corecdn.info/mark/48/ctn.svg",
+      "64": "https://corecdn.info/mark/64/ctn.svg",
+      "128": "https://corecdn.info/mark/128/ctn.svg",
+      "256": "https://corecdn.info/mark/256/ctn.svg"
     }
   }
 }

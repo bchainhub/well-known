@@ -5,6 +5,7 @@ import { Version } from "./endpoints/version";
 import { Health } from "./endpoints/health";
 import { listAllTokens } from "./endpoints/listAllTokens";
 import { getToken } from "./endpoints/getToken";
+import { lookupToken } from "./endpoints/lookup";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
@@ -27,6 +28,7 @@ app.get("/.well-known/tokens/status/health", Health);
 
 // Token endpoints
 app.get("/.well-known/tokens.json", listAllTokens);
+app.get("/.well-known/tokens/lookup/:network/:identifier", lookupToken);
 app.get("/.well-known/tokens/:network/tokens.json", listAllTokens);
 app.get("/.well-known/tokens/:token", getToken);
 app.get("/.well-known/tokens/:network/:token", getToken);
