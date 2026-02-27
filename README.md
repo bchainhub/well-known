@@ -202,6 +202,65 @@ The registry automatically filters out:
 
 This ensures that only active, valid tokens are returned in listings.
 
+#### `GET https://coreblockchain.net/.well-known/tokens/lookup/:network/:identifier`
+
+Look up whether a token exists by **token name** (ticker) or **address**.
+
+**Parameters:**
+
+- `network`: A specific network (e.g., `xcb`, `btc`, `eth`) or `all` to search across all networks
+- `identifier`: Token name (e.g., `ctn`) if **11 characters or fewer**, or token **address** if more than 11 characters (e.g., `cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c`)
+
+**Query parameters:**
+
+- `testnet` (optional): Set to `1` to include testnet tokens in the search. Default: only mainnet
+
+**Success response (200):**
+
+- `exists`: `true`
+- `amount`: Number of tokens found
+- `networks`: Array of network identifiers where the token was found (only when `network=all`)
+
+**Not found (404):**
+
+- `exists`: `false`
+- `amount`: `0`
+- `error`: `"Token not found"`
+
+**Examples:**
+
+```bash
+# Look up by ticker on xcb
+GET https://coreblockchain.net/.well-known/tokens/lookup/xcb/ctn
+
+# Look up by address on all networks
+GET https://coreblockchain.net/.well-known/tokens/lookup/all/cb19c7acc4c292d2943ba23c2eaa5d9c5a6652a8710c
+
+# Include testnet in lookup
+GET https://coreblockchain.net/.well-known/tokens/lookup/all/ctn?testnet=1
+```
+
+**Example success response (network=all):**
+
+```json
+{
+  "exists": true,
+  "amount": 2,
+  "networks": ["xcb", "btc"]
+}
+```
+
+**Example success response (specific network):**
+
+```json
+{
+  "exists": true,
+  "amount": 1
+}
+```
+
+**Note:** Lookup by token name (ticker) requires D1 storage. With KV storage, only lookup by address is supported.
+
 #### `GET https://coreblockchain.net/.well-known/tokens/:token.json`
 
 Retrieves detailed information for a specific token from the main network.
